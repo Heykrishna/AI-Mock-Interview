@@ -10,3 +10,6 @@ export default function Layout({ children }) {
       <AnimatePresence mode="wait">{children}</AnimatePresence>
     </div>)
 }
+
+
+
