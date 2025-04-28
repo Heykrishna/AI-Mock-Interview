@@ -4,6 +4,6 @@ export default defineConfig({
   schema: "./utils/schema.js",
   out: "./drizzle",
   dbCredentials: {
-    url: "postgresql://ai-interview-mocker_owner:npg_wjfYPct4UF8H@ep-fancy-mode-a5x3f7h6-pooler.us-east-2.aws.neon.tech/ai-interview-mocker?sslmode=require",
+    url: "postgresql://AI%20Mock%20Interview_owner:npg_bi3a4UomsMzV@ep-black-sun-a47w60vu-pooler.us-east-1.aws.neon.tech/AI%20Mock%20Interview?sslmode=require",
   }
 });
