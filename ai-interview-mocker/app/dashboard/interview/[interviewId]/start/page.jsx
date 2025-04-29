@@ -3,9 +3,11 @@ import { db } from '@/utils/db';
 import { MockInterview } from '@/utils/schema';
 import { eq } from 'drizzle-orm';
 import { useParams } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import React, { act, useEffect, useState } from 'react'
 import QuestionsSection from './_components/QuestionsSection.jsx';
 import dynamic from 'next/dynamic';
+import { Button } from '@/components/ui/button.jsx';
+import { Link } from 'lucide-react';
 const RecordAnswerSection = dynamic(() => import('./_components/RecordAnswerSection.jsx'), {
   ssr: false,
 });
@@ -30,16 +32,32 @@ const StartInterview = () => {
         setInterviewData(result[0]);
       };
   return (
-    <div className='grid grid-cols-1 md:grid-cols-2 gap-10'>
+    <div>
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-10'>
         <QuestionsSection mockInterviewQuestion={mockInterviewQuestion}
         activeQuestionIndex={activeQuestionIndex}
         />
+
         <RecordAnswerSection
         mockInterviewQuestion={mockInterviewQuestion}
         activeQuestionIndex={activeQuestionIndex}
         interviewData={interviewData}
         />
+      </div>
+
+      <div className="flex justify-end gap-10 pb-10">
+        {activeQuestionIndex>0 && 
+        <Button onClick={()=>setActiveQuestionIndex(activeQuestionIndex-1)}>Previous Question</Button>}
+        {activeQuestionIndex!=mockInterviewQuestion?.length-1&&  
+        <Button onClick={()=>setActiveQuestionIndex(activeQuestionIndex+1)}>Next Question</Button>}
+        {activeQuestionIndex==mockInterviewQuestion?.length-1&&  
+        <Link href={'/dashboard/interview'+interviewData?.mockId+"/feedback"}>
+          <Button>End Interview</Button>
+        </Link>}
+      </div>
+
     </div>
+    
   )
 }
 

@@ -120,3 +120,8 @@
     @apply bg-background text-foreground;
   }
 }
+
+.customclass{
+  margin-bottom: -100px;
+  border: 1px solid black;
+}

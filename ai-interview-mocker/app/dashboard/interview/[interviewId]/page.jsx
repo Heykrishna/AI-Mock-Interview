@@ -8,6 +8,10 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Webcam from "react-webcam";
+
+
+
+
 const Interview = () => {
   const params = useParams();
   const [interviewDetails, setInterviewDetails] = useState([]);
@@ -79,11 +83,13 @@ const Interview = () => {
             )}
           </div>
         </div>
+
         <div className="w-full flex justify-end mt-10">
           <Link href={'/dashboard/interview/'+params.interviewId+'/start'}>
           <Button className="hover:cursor-pointer">Start Interview</Button>
           </Link>
         </div>
+
       </div>
     </div>
   );
