@@ -8,10 +8,11 @@ import { useUser } from "@clerk/nextjs";
 import { Mic, StopCircle } from "lucide-react";
 import moment from "moment";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useSpeechToText from "react-hook-speech-to-text";
 import Webcam from "react-webcam";
 import { toast } from "sonner";
+
 
 const RecordAnswerSection = ({
   mockInterviewQuestion,
@@ -24,14 +25,38 @@ const RecordAnswerSection = ({
   const [loading, setLoading] = useState(false);
 
   const {
+    error,
+    interimResult,
     results,
     isRecording,
     startSpeechToText,
     stopSpeechToText,
+    setResults
+
+
+
   } = useSpeechToText({
     continuous: true,
     useLegacyResults: false,
   });
+
+  useEffect(()=>{
+
+    results?.map((result)=>
+      setUserAnswer(prevAns=>prevAns+result?.transcript))
+
+  },[results])
+
+
+  useEffect(()=>{
+    if(!isRecording&&userAnswer?.length>10)
+    {
+      UpdateUserAnswer();
+    }
+  },[userAnswer])
+
+
+
 
   const StartStopRecording = async () => {
     if (isRecording) {
@@ -41,10 +66,10 @@ const RecordAnswerSection = ({
       const finalTranscript = results.map((r) => r.transcript).join(" ");
       setUserAnswer((prev) => prev + finalTranscript);
 
-      if ((userAnswer + finalTranscript).length < 10) {
-        toast("❌ Please record a longer answer.");
-        return;
-      }
+      // if ((userAnswer + finalTranscript).length < 10) {
+      //   toast(" Please record a longer answer.");
+      //   return;
+      // }
 
       await UpdateUserAnswer(userAnswer + finalTranscript);
     } else {
@@ -54,7 +79,7 @@ const RecordAnswerSection = ({
     }
   };
 
-  const UpdateUserAnswer = async (finalAnswer) => {
+  const UpdateUserAnswer=async(finalAnswer) => {
     try {
       setLoading(true);
 
@@ -79,15 +104,26 @@ const RecordAnswerSection = ({
         createdAt: moment().format("DD-MM-YYYY"),
       });
 
-      toast("✅ Answer recorded and feedback generated!");
+      toast("Answer recorded and feedback generated!");
       setUserAnswer("");
     } catch (error) {
       console.error(error);
-      toast("❌ Error saving answer.");
+      toast(" Error saving answer.");
     } finally {
       setLoading(false);
     }
-  };
+
+      if(resp)
+      {
+        toast("User Answer recorded sucessfully");
+        setUserAnswer("");
+        setResults([]);
+      }
+      setResults([]);
+
+
+      setLoading(false);
+  }
 
   return (
     <div className="flex items-center justify-center flex-col">
