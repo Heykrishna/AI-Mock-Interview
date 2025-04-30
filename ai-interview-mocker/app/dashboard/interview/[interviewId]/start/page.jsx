@@ -7,8 +7,9 @@ import React, { act, useEffect, useState } from "react";
 import QuestionsSection from "./_components/QuestionsSection.jsx";
 import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button.jsx";
-// import { Link } from 'lucide-react';
 import Link from "next/link";
+// import InterviewList from "./_components/InterviewList";
+
 const RecordAnswerSection = dynamic(
   () => import("./_components/RecordAnswerSection.jsx"),
   {
@@ -68,9 +69,7 @@ const StartInterview = () => {
         )}
 
         {activeQuestionIndex == mockInterviewQuestion?.length - 1 && (
-          // <Link to={'/dashboard/interview'+interviewData?.mockId+"/feedback"}>
-          //   <Button>End Interview</Button>
-          // </Link>
+         
           <Link href={`/dashboard/interview/${interviewData?.mockId}/feedback`}>
             <Button>End Interview</Button>
           </Link>

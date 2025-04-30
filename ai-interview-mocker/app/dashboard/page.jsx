@@ -1,5 +1,6 @@
 import React from 'react';
 import AddNewInterview from './_components/AddNewInterview';
+import InterviewList from './_components/InterviewList';
 
 const Dashboard = () => {
   return (
@@ -23,6 +24,13 @@ const Dashboard = () => {
             <div className="flex flex-col items-center justify-center h-full">
               <AddNewInterview />
             </div>
+
+
+
+
+            {/* {Previous Interview List} */}
+            <InterviewList/>
+            
           </div>
 
           {/* Example Placeholder Cards for Future Features */}
