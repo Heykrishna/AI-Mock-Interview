@@ -5,6 +5,7 @@ import { useUser } from '@clerk/nextjs';
 import { desc, eq } from 'drizzle-orm';
 import React, { useEffect, useState } from 'react';
 import InterviewItemCard from './InterviewItemCard';
+import '../../globals.css'
 
 function InterviewList() {
   const { user } = useUser();
@@ -27,9 +28,11 @@ function InterviewList() {
 
   return (
     <div className="p-4 md:p-6">
-      <h2 className="font-semibold text-2xl text-primary mb-4">Previous Mock Interviews</h2>
+      <h2 className="font-semibold text-2xl text-primary mb-10">Previous Mock Interviews</h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"> */}
+      
+      <div className="customcss">
         {interviewList?.map((interview, index) => (
           <InterviewItemCard key={index} interview={interview} />
         ))}

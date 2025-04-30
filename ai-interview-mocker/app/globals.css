@@ -1,4 +1,4 @@
-@import "tailwindcss";
+  @import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
@@ -121,7 +121,18 @@
   }
 }
 
-.customclass{
-  margin-bottom: -100px;
-  border: 1px solid black;
+.customcss{
+  width: 85vw;
+  gap: 40px;
+  display: flex;
+  flex-wrap: wrap;
 }
+ .interviewdiv{
+  width: 22%;
+ }
+ .outerdiv{
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  align-items: center;
+ }
