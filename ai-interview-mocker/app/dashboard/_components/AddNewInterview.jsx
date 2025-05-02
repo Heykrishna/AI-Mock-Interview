@@ -81,15 +81,18 @@ Only return the JSON array. Do not include any commentary or explanation.
       console.log(parsedJson);
       setJsonResponse(parsedJson);
 
-      const resp = await db.insert(MockInterview).values({
-        mockId: uuidv4(),
-        jsonMockResp: JSON.stringify(parsedJson),
-        jobPosition: jobPosition,
-        jobDesc: jobDesc,
-        jobExperience: jobExperience,
-        createdBy: user?.primaryEmailAddress?.emailAddress,
-        createdAt: moment().format("DD-MM-YYYY"),
-      }).returning({ mockId: MockInterview.mockId });
+      const resp = await db
+        .insert(MockInterview)
+        .values({
+          mockId: uuidv4(),
+          jsonMockResp: JSON.stringify(parsedJson),
+          jobPosition: jobPosition,
+          jobDesc: jobDesc,
+          jobExperience: jobExperience,
+          createdBy: user?.primaryEmailAddress?.emailAddress,
+          createdAt: moment().format("DD-MM-YYYY"),
+        })
+        .returning({ mockId: MockInterview.mockId });
 
       console.log("Inserted ID:", resp);
 
